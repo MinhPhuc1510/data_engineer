@@ -1,0 +1,4 @@
+Django
+redshift-connector
+djangorestframework
+fontawesomefree
