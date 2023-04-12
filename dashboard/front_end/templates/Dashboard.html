@@ -1,0 +1,203 @@
+{% load static %}
+<html>
+    <head>
+        {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}" />
+        <meta charset="utf-8">
+        <meta name="description" content="Rolling Stone magazine's 2012 list of 500 greatest albums of all time with genres.">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="datatables.min.css"/>
+        {% endblock %}
+        <style type="text/css">
+            .sidenav {
+                height: 100%;
+                width: 250px;
+                position: relative;
+                z-index: 1;
+                top:0;
+                left: 0;
+                background-color: #333333;
+                overflow-x: hidden;
+                padding-top: 20px;
+                opacity: 1;
+
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                }
+            .sidenav {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 25px;
+                font: black;
+                display: block;
+                flex: 1.5;
+
+            }
+            .sidenav a:hover{
+                color: black;
+            }
+            .title{
+                
+                padding-top: 40px;           
+            }
+
+            a{
+                color: #fff;
+                text-decoration: none;
+                /* padding-left: 20px; */
+                font-size: 18px;
+                text-align: center;          
+                
+            }
+/* 
+            h1{
+                color: #fff;
+                font-size: 18px;
+                margin-left:0;
+                font-family: 'Times New Roman', Times, serif;
+                margin-bottom: 20px;
+        
+       
+            } */
+
+            .dashboard{
+                margin-top: 100px;
+            }
+
+            .employee{
+                margin-top: 55px;
+            }
+
+            .department{
+                margin-top: 55px;
+            }
+            
+            .report{
+                flex: 8;
+                /* margin-left: 0px; */
+                /* margin-bottom: 0px; */
+                height: 98%;
+                background-color: #fff;
+                -webkit-box-shadow: 0px 0px 11px -5px #000000; 
+                box-shadow: 0px 0px 11px -5px #000000;
+                align-items: center;
+                margin: 5 10 30 10;
+                /* width: 100%; */
+            }
+
+            .content{
+                margin-top: 20px;
+            }
+            .parent{
+                height: 100%;
+                display: flex;
+                margin: 0;
+                padding: 0;           
+            
+            }
+            .grandparent{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 1005;
+            }
+            .header{
+                height: 70px;
+                width: 100%;
+                background-color: #000;
+            }
+            .image_1{
+                height: 50px;
+                width: 50px;
+                margin-top: 10px;
+                margin-left: 50px;
+            
+            }
+            .main {
+                margin-left: 160px;
+                padding: 0px 10px;
+            }
+        </style>
+
+        <title>
+            {% block title %} Human Resource Dashboard  {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        <div class="grandparent">
+    <div class="header">
+        <img class="image_1" src="http://rubee.com.vn/admin/webroot/upload/image//images/tin-tuc/logo-bach-khoa-ho-chi-minh.jpg" alt="BK">
+        <a href="{% url 'user_logout' %}" style="top:20;right:20;position: absolute;color: gray;">Logout</a>
+    </div>
+    <div class="parent">
+        <div class="sidenav">
+            <div class="content">
+                <h1 style="color: yellow">
+                    HUMAN  RESOURCES
+                </h1>
+                <div style="display: flex;flex-direction: column;">
+                    <img class="image_1" src="http://demo.viewflow.io/static/material/imgs/user.346c12c47d28.png" style="border-radius:50%;" alt="BK">
+                    {% if user.is_authenticated %}
+                        <span style="color: white;margin-left: 20% ;font-size: 20; text-transform: capitalize;">{{request.user}}</span> 
+                    {% else %}
+                        <span style="color: white;text-transform: capitalize;">{{request.user}}</span> 
+                    {% endif %}
+                </div>
+            </div>
+ 
+            <div class=" dashboard">
+                <a href="{% url 'dashboard' %}" > <i class="fas fa-chart-bar"></i>  Dashboard</a>
+            </div>
+
+            <div class="employee">
+                <a href="{% url 'employees' %}"> <i class="fas fa-user"></i>  Employees</a>
+            </div>
+
+            <div class=" department">
+                <a href="{% url 'departments' %}" > <i class="fas fa-building"></i> Department </a>
+            </div>
+                
+            
+        </div>
+        <div class="report">
+            {% if user.is_authenticated %}
+            {% if user.is_staff%}
+                {% block main %}{% endblock %}
+                <iframe
+                frameborder="0"
+                noresize="noresize"
+                style="width:100%; height: 95%;"
+                src="{{ iframe }}"
+                ></iframe>
+                {% block scripts %}{% endblock %}
+            {% else %}
+                <h1>Please ask an administrator to activate your account</h1>
+            {% endif %}
+            {% else %}
+                <h1>Please login to see this page</h1>
+            {% endif %}
+        </div>
+        
+    </div>
+        </div>
+        <div id="content", name="content", class="main" >
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+
+
+
+
+       
+   
+
+ 
+
+  

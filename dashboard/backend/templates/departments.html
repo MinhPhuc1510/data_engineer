@@ -1,0 +1,347 @@
+{% load static %}
+
+<html>
+    <head>
+        {% block style %}
+        <link rel="stylesheet" type="text/css" href="{% static "fontawesome/css/all.min.css" %}" />
+        <meta charset="utf-8">
+        <title>Departments</title>
+        <meta name="description" content="Rolling Stone magazine's 2012 list of 500 greatest albums of all time with genres.">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+        <!-- <link rel="stylesheet" type="text/css" href="datatables.min.css"/> -->
+        {% endblock %}
+        
+        <style type="text/css">
+            .sidenav {
+                height: 100%;
+                width: 250px;
+                position: relative;
+                z-index: 1;
+                top:0;
+                left: 0;
+                background-color: #333333;
+                overflow-x: hidden;
+                padding-top: 20px;
+                opacity: 1;
+
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                }
+            .sidenav {
+                padding: 6px 8px 6px 16px;
+                text-decoration: none;
+                font-size: 25px;
+                font: black;
+                display: block;
+                flex: 1.5;
+
+            }
+            .sidenav a:hover{
+                color: #003300;
+            }
+            .title{
+                
+                padding-top: 40px;           
+            }
+
+            a{
+                color: #fff;
+                text-decoration: none;
+                /* padding-left: 20px; */
+                font-size: 18px;
+                text-align: center;          
+                
+            }
+
+            /* h1,span{
+                color: #fff;
+                font-size: 18px;
+                margin-left:0;
+                font-family: 'Times New Roman', Times, serif;
+                margin-bottom: 20px;
+        
+       
+            } */
+
+            .dashboard{
+                margin-top: 100px;
+                /* display: flex; */
+                /* align-items: center; */
+            }
+
+            .employee{
+                margin-top: 55px;
+            }
+
+            .department{
+                margin-top: 55px;
+            }
+            
+            .report{
+                flex: 8;
+                /* margin-left: 0px; */
+                /* margin-bottom: 0px; */
+                height: 98%;
+                background-color: #fff;
+                -webkit-box-shadow: 0px 0px 11px -5px #000000; 
+                box-shadow: 0px 0px 11px -5px #000000;
+                align-items: center;
+                margin: 5 10 30 10;
+                /* width: 100%; */
+            }
+
+            .content{
+                margin-top: 20px;
+            }
+            .parent{
+                height: 100%;
+                display: flex;
+                margin: 0;
+                padding: 0;           
+            
+            }
+            .grandparent{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: 1005;
+            }
+            .header{
+                height: 70px;
+                width: 100%;
+                background-color: #000;
+                display: flex;
+                align-items: center;
+            }
+
+            .image_1{
+                height: 50px;
+                width: 50px;
+                margin-top: 10px;
+                margin-left: 50px;
+            
+            }
+            .main {
+                margin-left: 160px;
+                padding: 0px 10px;
+            }
+
+            /* table, th, td{
+                border: 1px solid;
+            } */
+            input {
+                border: 1px solid;
+            }
+            .display td {
+                font-weight: normal;
+                font-size: 1em;
+                -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+                -moz-box-shadow: 0 2px 2px -2px #0E1119;
+                    box-shadow: 0 2px 2px -2px #0E1119;
+            }
+            .container{
+                margin-left: 0px;
+            }
+            .display {
+                text-align: left;
+                overflow: hidden;
+                width: 100%;
+                margin: 0 auto;
+                display: table;
+                padding: 0 0 8em 0;
+                /* white-space: nowrap; */
+
+            }
+            .display td, .display th {
+                padding-bottom: 2%;
+                padding-top: 2%;
+                padding-left: 2%; 
+              
+            }
+
+            .display tr:nth-child(odd) {
+                background-color: #fff;
+                color: #000;
+           
+             
+            }
+            .display tr:nth-child(even) {
+                background-color: #fff;
+                color: #000;
+         
+       
+            }
+            .display th {
+                background-color: #fff;
+
+            }
+   
+            .display td:first-child { color: #000; }
+            .display tr:hover {
+                background-color: #FB667A;
+                -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+                -moz-box-shadow: 0 6px 6px -6px #0E1119;
+                box-shadow: 0 6px 6px -6px #0E1119;
+            }
+            table.dataTable {
+                padding-bottom: 20px;
+            }
+            .add_user img:hover{
+                box-shadow: 0 6px 6px -6px #0E1119;
+                
+            }
+            /* .checkbox{
+                text-align: center;
+            } */
+            /* .col-sm-12{
+                -webkit-box-shadow: 0px 0px 11px -5px #000000; 
+                box-shadow: 0px 0px 11px -5px #000000;
+                align-items: center;
+            } */
+          
+           
+        </style>
+    </head>
+
+    <body>
+        <div class="grandparent">
+    <div class="header">
+        <img class="image_1" src="http://rubee.com.vn/admin/webroot/upload/image//images/tin-tuc/logo-bach-khoa-ho-chi-minh.jpg" alt="BK">
+        <h1 style="margin: 20 20 20 200;font-size: 35;color: white;"> Departments </h1>
+        <a href="{% url 'user_logout' %}" style="top:20;right:20;position: absolute;color: gray;">Logout</a>
+    </div>
+    <div class="parent">
+        <div class="sidenav">
+            <div class="content">
+                <h1 style="color: yellow">
+                    HUMAN  RESOURCES
+                </h1>
+                <div style="display: flex;flex-direction: column;">
+                    <img class="image_1" src="http://demo.viewflow.io/static/material/imgs/user.346c12c47d28.png" style="border-radius:50%;" alt="BK">
+                    <span style="color: white;margin-left: 45px ;font-size: 20; text-transform: capitalize;">{{request.user}}</span> 
+                </div>
+            </div>
+ 
+            <div class=" dashboard">
+                <a href="{% url 'dashboard' %}" > <i class="fas fa-chart-bar"></i>  Dashboard</a>
+            </div>
+
+            <div class="employee">
+                <a href="{% url 'employees' %}"> <i class="fas fa-user"></i>  Employees</a>
+            </div>
+
+            <div class=" department">
+                <a href="{% url 'departments' %}" > <i class="fas fa-building"></i> Department </a>
+            </div>
+                
+            
+        </div>
+        <div class="report">
+            <div class="container">
+                <div class="row" >
+                  <div class="col-sm-12">
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Department ID</th>
+                                <th>Name</th>
+                                <th>Group Name</th>
+                                <th>Employees</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for department in data %}
+                            <tr>
+                                <td>{{ department.department_id }}</td>
+                                <td>{{ department.name }}</td>
+                                <td>{{ department.group_name }}</td>
+                                <td>{{ department.employess }}</td>
+                            </tr>
+                            {% endfor %}    
+                        </tbody>
+                        <!-- <tfoot>
+                            <tr>
+                                <th>Business Entity ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Birthday</th>
+                                <th>Salaried</th>
+                                <th>Vacation hours</th>
+                            </tr>
+                        </tfoot> -->
+                    </table>
+                    <div class="add_user">
+                        <a href="{% url 'create_department' %}"> <img src="data:image/png;base64,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" style="color:red;position: relative;height:5%;width: 5%;;"> </img> </a>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+             
+        </div>
+        
+    </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <div id="content", name="content", class="main" >
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+        <script src="//cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <!-- <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="datatables.min.js"></script> -->
+        <script>
+            $(document).ready(function() {
+            $('#example').DataTable( {
+                "dom": 'frtip'
+                
+            } );
+        } );
+//             $(document).ready(function () {
+//     // Setup - add a text input to each footer cell
+//     // $('#example tfoot th').each(function () {
+//     //     var title = $(this).text();
+//     //     $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+//     // });
+ 
+//     // DataTable
+//     var table = $('#example').DataTable({
+//         "dom": 'frtip',
+//         // initComplete: function () {
+//         //     // Apply the search
+//         //     this.api()
+//         //         .columns()
+//         //         .every(function () {
+//         //             var that = this;
+ 
+//         //             $('input', this.footer()).on('keyup change clear', function () {
+//         //                 if (that.search() !== this.value) {
+//         //                     that.search(this.value).draw();
+//         //                 }
+//         //             });
+                    
+//         //         });
+//         // },
+//     });
+    
+// });
+        </script>
+    </body>
+</html>
+
+<!-- 
+{% for employee in data %}
+                <li>{{ employee.first_name }} {{ employee.middle_name }}</li>
+                {% endfor %} -->
